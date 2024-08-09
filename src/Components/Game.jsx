@@ -1,8 +1,11 @@
 import React from "react";
 import Box from "./Box";
 import { Link } from "react-router-dom";
+import { usePlayers } from "../utils/PlayerController";
 
 const Game = () => {
+  const { players } = usePlayers();
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col h-[28rem] w-[28rem] rounded-2xl">

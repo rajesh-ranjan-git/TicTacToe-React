@@ -1,12 +1,26 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { usePlayers } from "../utils/PlayerController";
 
 const Players = () => {
-  const [player1, setPlayer1] = useState("Player 1");
-  const [player2, setPlayer2] = useState("Player 2");
+  const navigate = useNavigate();
+
+  const { players, setPlayers } = usePlayers();
+
+  const handlePlayerNames = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "player1") {
+      players.players[0].name = value;
+    } else if (name === "player2") {
+      players.players[1].name = value;
+    }
+  };
 
   const handlePlayers = () => {
-    console.log(player1, player2);
+    console.log(players);
+    navigate("/game");
   };
 
   return (
@@ -16,26 +30,26 @@ const Players = () => {
           Player 1 Name :
         </label>
         <input
+          name="player1"
           placeholder="Player 1"
           className="m-2 p-2 rounded-lg w-60 text-center outline-none"
-          onChange={(e) => setPlayer1(e.target.value)}
+          onChange={handlePlayerNames}
         />
         <label className="m-2 p-2 text-2xl w-60 font-semibold">
           Player 2 Name :
         </label>
         <input
+          name="player2"
           placeholder="Player 2"
           className="m-2 p-2 rounded-lg w-60 text-center outline-none"
-          onChange={(e) => setPlayer2(e.target.value)}
+          onChange={handlePlayerNames}
         />
-        <Link to={"/game"}>
-          <button
-            className="mt-12 p-4 bg-[#1D3557] w-60 rounded-2xl text-lg text-[#F1FAEE] font-semibold"
-            onClick={handlePlayers}
-          >
-            Start
-          </button>
-        </Link>
+        <button
+          className="mt-12 p-4 bg-[#1D3557] w-60 rounded-2xl text-lg text-[#F1FAEE] font-semibold"
+          onClick={handlePlayers}
+        >
+          Start
+        </button>
       </div>
     </div>
   );
