@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import Home from "./Components/Home.jsx";
+import App from "./App";
+import Home from "./Components/Home";
+import Players from "./Components/Players";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -12,6 +13,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/players",
+        element: <Players />,
       },
     ],
   },
