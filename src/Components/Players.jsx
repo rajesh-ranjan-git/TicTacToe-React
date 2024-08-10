@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { usePlayers } from "../utils/PlayerController";
+import { initialValues, usePlayers } from "../utils/Store/PlayerController";
 
 const Players = () => {
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ const Players = () => {
   };
 
   const handlePlayers = () => {
-    console.log(players);
     navigate("/game");
   };
 

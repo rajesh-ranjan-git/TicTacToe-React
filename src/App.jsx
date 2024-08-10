@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "./App.css";
 import Title from "./Components/Title";
-import { PlayerController } from "./utils/PlayerController";
+import { PlayerController } from "./utils/Store/PlayerController";
 
 function App() {
   return (

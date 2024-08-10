@@ -27,4 +27,4 @@ const PlayerController = ({ children }) => {
 
 const usePlayers = () => useContext(PlayerStore);
 
-export { usePlayers, PlayerController };
+export { usePlayers, initialValues, PlayerController };
