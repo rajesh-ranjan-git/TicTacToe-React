@@ -25,14 +25,6 @@ const appRouter = createBrowserRouter([
         path: "/game",
         element: <Game />,
       },
-      {
-        path: "/winner",
-        element: <Winner />,
-      },
-      {
-        path: "/draw",
-        element: <Draw />,
-      },
     ],
   },
 ]);

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initialValues, usePlayers } from "../utils/Store/PlayerController";
 import SingleBox from "./SingleBox";
+import Draw from "./Draw";
+import Winner from "./Winner";
 
 const Game = () => {
   const winPattern = [
@@ -23,6 +25,7 @@ const Game = () => {
   const [playerTurn, setPlayerTurn] = useState(players.players[0].name);
   const [boxValue, setBoxValue] = useState({});
   const [winner, setWinner] = useState(false);
+  const [draw, setDraw] = useState(false);
 
   const boxes = [];
 
@@ -31,11 +34,11 @@ const Game = () => {
   }
 
   const handleNewGame = () => {
-    reset();
+    handleReset();
     navigate("/players");
   };
 
-  const reset = () => {
+  const handleReset = () => {
     setPlayers(initialValues);
     setCounter(0);
     setTurn(true);
@@ -52,9 +55,8 @@ const Game = () => {
 
       if (pos1 != undefined && pos2 != undefined && pos3 != undefined) {
         if (pos1 === pos2 && pos2 === pos3) {
-          reset();
+          handleReset();
           setWinner(true);
-          navigate("/winner");
         }
       }
     }
@@ -62,8 +64,8 @@ const Game = () => {
 
   const checkDraw = () => {
     if (winner !== true && counter === 9) {
-      reset();
-      navigate("/draw");
+      handleReset();
+      setDraw(true);
     }
   };
 
@@ -96,7 +98,11 @@ const Game = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="relative m-8 flex flex-col h-[28rem] w-[28rem] rounded-2xl">
+      <div
+        className={`relative m-8 flex flex-col h-[28rem] w-[28rem] rounded-2xl ${
+          draw || winner ? "blur" : ""
+        }`}
+      >
         <div className="m-2 flex justify-center items-center flex-wrap">
           {boxes.map((box, id) => (
             <SingleBox
@@ -105,28 +111,37 @@ const Game = () => {
               key={id}
               handleTurns={handleTurns}
               boxValue={boxValue}
+              winner={winner}
+              draw={draw}
             />
           ))}
         </div>
         <div className="flex justify-center">
           <button
             className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg"
-            onClick={reset}
+            onClick={!winner && !draw ? handleReset : ""}
           >
             Reset
           </button>
           <button
             className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg"
-            onClick={handleNewGame}
+            onClick={!winner && !draw ? handleNewGame : ""}
           >
             New Game
           </button>
         </div>
       </div>
 
-      <div className="absolute top-[11%] px-4 py-2 bg-[#457B9D] text-center text-2xl text-[#F1FAEE] font-semibold rounded-2xl">
-        {playerTurn}'s turn
-      </div>
+      {draw ? <Draw handleNewGame={handleNewGame} /> : null}
+      {winner ? <Winner handleNewGame={handleNewGame} /> : null}
+
+      {!draw && !winner ? (
+        <div className="absolute top-[11%] px-4 py-2 bg-[#457B9D] text-center text-2xl text-[#F1FAEE] font-semibold rounded-2xl">
+          {playerTurn}'s turn
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
