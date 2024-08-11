@@ -1,7 +1,7 @@
 import React from "react";
 
 const Draw = () => {
-  return <div></div>;
+  return <div>Draw Component</div>;
 };
 
 export default Draw;

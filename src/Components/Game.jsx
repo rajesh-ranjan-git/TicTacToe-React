@@ -22,6 +22,7 @@ const Game = () => {
   const [turn, setTurn] = useState(true);
   const [playerTurn, setPlayerTurn] = useState(players.players[0].name);
   const [boxValue, setBoxValue] = useState({});
+  const [winner, setWinner] = useState(false);
 
   const boxes = [];
 
@@ -29,9 +30,44 @@ const Game = () => {
     boxes.push(<SingleBox />);
   }
 
+  let count = 0;
+
   const handleNewGame = () => {
     setPlayers(initialValues);
     navigate("/players");
+  };
+
+  const reset = () => {
+    setPlayers(initialValues);
+    setCounter(0);
+    setTurn(true);
+    setPlayerTurn(players.players[0].name);
+    setBoxValue({});
+    setWinner(false);
+  };
+
+  const checkWinner = () => {
+    for (let pattern of winPattern) {
+      let pos1 = boxValue[pattern[0]];
+      let pos2 = boxValue[pattern[1]];
+      let pos3 = boxValue[pattern[2]];
+
+      if (pos1 != undefined && pos2 != undefined && pos3 != undefined) {
+        if (pos1 === pos2 && pos2 === pos3) {
+          reset();
+          navigate("/winner");
+          setWinner(true);
+        }
+      }
+    }
+  };
+
+  const checkDraw = () => {
+    console.log("Draw", counter);
+    if (winner !== true && counter === 9) {
+      reset();
+      navigate("/draw");
+    }
   };
 
   const handleTurns = (id, valueRef) => {
@@ -44,17 +80,19 @@ const Game = () => {
           setBoxValue({ ...boxValue });
           setTurn(false);
           setPlayerTurn(players.players[1].name);
-          // click_check = checkWinner(box.innerText);
+          checkWinner();
         } else {
-          valueRef = "0";
+          valueRef = "O";
           boxValue[id] = valueRef;
           setBoxValue({ ...boxValue });
           setTurn(true);
           setPlayerTurn(players.players[0].name);
-          // click_check = checkWinner(box.innerText);
+          checkWinner();
         }
       }
     }
+
+    checkDraw();
   };
 
   return (
@@ -68,7 +106,6 @@ const Game = () => {
               key={id}
               handleTurns={handleTurns}
               boxValue={boxValue}
-              // setBoxValue={setBoxValue}
             />
           ))}
         </div>

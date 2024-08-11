@@ -11,7 +11,6 @@ const SingleBox = ({ id, handleTurns, boxValue }) => {
   return (
     <div
       className="flex justify-center items-center m-2 bg-[#1D3557] h-[7rem] w-[7rem] rounded-2xl drop-shadow-box cursor-pointer text-6xl font-semibold text-[#F1FAEE]"
-      // onClick={() => handleTurns(id, boxValueRef)}
       onClick={handleBoxValue}
       ref={boxValueRef}
     >
