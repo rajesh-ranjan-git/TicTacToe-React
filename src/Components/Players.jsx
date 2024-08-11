@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { initialValues, usePlayers } from "../utils/Store/PlayerController";
+import newGameSound from "../assets/sounds/new-game2.mp3";
 
 const Players = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Players = () => {
   };
 
   const handlePlayers = () => {
+    new Audio(newGameSound).play();
     navigate("/game");
   };
 

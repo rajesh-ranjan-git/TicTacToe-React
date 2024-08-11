@@ -4,6 +4,9 @@ import { initialValues, usePlayers } from "../utils/Store/PlayerController";
 import SingleBox from "./SingleBox";
 import Draw from "./Draw";
 import Winner from "./Winner";
+import gameReset from "../assets/sounds/game-reset.mp3";
+import gameDraw from "../assets/sounds/draw.mp3";
+import gameWinner from "../assets/sounds/winner.mp3";
 
 const Game = () => {
   const winPattern = [
@@ -35,17 +38,22 @@ const Game = () => {
   }
 
   const handleNewGame = () => {
-    handleReset();
+    reset();
     navigate("/players");
   };
 
-  const handleReset = () => {
+  const reset = () => {
     setPlayers(initialValues);
     setCounter(0);
     setTurn(true);
     setPlayerTurn(players.players[0].name);
     setBoxValue({});
-    setWinner("");
+    setWinner(false);
+  };
+
+  const handleReset = () => {
+    new Audio(gameReset).play();
+    reset();
   };
 
   const checkWinner = (winningPlayer) => {
@@ -56,7 +64,8 @@ const Game = () => {
 
       if (pos1 != undefined && pos2 != undefined && pos3 != undefined) {
         if (pos1 === pos2 && pos2 === pos3) {
-          handleReset();
+          new Audio(gameWinner).play();
+          reset();
           setWinner(true);
           setWinningPlayer(winningPlayer);
         }
@@ -66,7 +75,8 @@ const Game = () => {
 
   const checkDraw = () => {
     if (winner !== true && counter === 9) {
-      handleReset();
+      new Audio(gameDraw).play();
+      reset();
       setDraw(true);
     }
   };
@@ -81,14 +91,14 @@ const Game = () => {
           setBoxValue({ ...boxValue });
           setTurn(false);
           setPlayerTurn(players.players[1].name);
-          checkWinner(players.players[1].name);
+          checkWinner(players.players[0].name);
         } else {
           valueRef = "O";
           boxValue[id] = valueRef;
           setBoxValue({ ...boxValue });
           setTurn(true);
           setPlayerTurn(players.players[0].name);
-          checkWinner(players.players[0].name);
+          checkWinner(players.players[1].name);
         }
       }
     }
@@ -115,6 +125,7 @@ const Game = () => {
               boxValue={boxValue}
               winner={winner}
               draw={draw}
+              counter={counter}
             />
           ))}
         </div>
