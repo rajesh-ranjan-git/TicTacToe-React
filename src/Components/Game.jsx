@@ -15,12 +15,13 @@ const Game = () => {
     [6, 7, 8],
   ];
 
-  const [counter, setCounter] = useState(0);
-  const [turn, setTurn] = useState(true);
-  const [boxValue, setBoxValue] = useState({});
-
   const { players, setPlayers } = usePlayers();
   const navigate = useNavigate();
+
+  const [counter, setCounter] = useState(0);
+  const [turn, setTurn] = useState(true);
+  const [playerTurn, setPlayerTurn] = useState(players.players[0].name);
+  const [boxValue, setBoxValue] = useState({});
 
   const boxes = [];
 
@@ -42,12 +43,14 @@ const Game = () => {
           boxValue[id] = valueRef;
           setBoxValue({ ...boxValue });
           setTurn(false);
+          setPlayerTurn(players.players[1].name);
           // click_check = checkWinner(box.innerText);
         } else {
           valueRef = "0";
           boxValue[id] = valueRef;
           setBoxValue({ ...boxValue });
           setTurn(true);
+          setPlayerTurn(players.players[0].name);
           // click_check = checkWinner(box.innerText);
         }
       }
@@ -83,7 +86,7 @@ const Game = () => {
       </div>
 
       <div className="absolute top-[11%] px-4 py-2 bg-[#457B9D] text-center text-2xl text-[#F1FAEE] font-semibold rounded-2xl">
-        {players.players[0].name}'s turn
+        {playerTurn}'s turn
       </div>
     </div>
   );
