@@ -1,10 +1,24 @@
-import React from "react";
-import Box from "./Box";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { initialValues, usePlayers } from "../utils/Store/PlayerController";
 import SingleBox from "./SingleBox";
 
 const Game = () => {
+  const winPattern = [
+    [0, 1, 2],
+    [0, 3, 6],
+    [0, 4, 8],
+    [1, 4, 7],
+    [2, 4, 6],
+    [2, 5, 8],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
+
+  const [counter, setCounter] = useState(0);
+  const [turn, setTurn] = useState(true);
+  const [boxValue, setBoxValue] = useState({});
+
   const { players, setPlayers } = usePlayers();
   const navigate = useNavigate();
 
@@ -19,12 +33,40 @@ const Game = () => {
     navigate("/players");
   };
 
+  const handleTurns = (id, valueRef) => {
+    if (counter != 9) {
+      setCounter((count) => count + 1);
+      if (valueRef == "") {
+        if (turn == true) {
+          valueRef = "X";
+          boxValue[id] = valueRef;
+          setBoxValue({ ...boxValue });
+          setTurn(false);
+          // click_check = checkWinner(box.innerText);
+        } else {
+          valueRef = "0";
+          boxValue[id] = valueRef;
+          setBoxValue({ ...boxValue });
+          setTurn(true);
+          // click_check = checkWinner(box.innerText);
+        }
+      }
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <div className="relative m-8 flex flex-col h-[28rem] w-[28rem] rounded-2xl">
         <div className="m-2 flex justify-center items-center flex-wrap">
-          {boxes.map((box, i) => (
-            <SingleBox obj={box} key={i} />
+          {boxes.map((box, id) => (
+            <SingleBox
+              box={box}
+              id={id}
+              key={id}
+              handleTurns={handleTurns}
+              boxValue={boxValue}
+              // setBoxValue={setBoxValue}
+            />
           ))}
         </div>
         <div className="flex justify-center">
