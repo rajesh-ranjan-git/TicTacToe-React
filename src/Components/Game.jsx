@@ -25,6 +25,7 @@ const Game = () => {
   const [playerTurn, setPlayerTurn] = useState(players.players[0].name);
   const [boxValue, setBoxValue] = useState({});
   const [winner, setWinner] = useState(false);
+  const [winningPlayer, setWinningPlayer] = useState("");
   const [draw, setDraw] = useState(false);
 
   const boxes = [];
@@ -44,10 +45,10 @@ const Game = () => {
     setTurn(true);
     setPlayerTurn(players.players[0].name);
     setBoxValue({});
-    setWinner(false);
+    setWinner("");
   };
 
-  const checkWinner = () => {
+  const checkWinner = (winningPlayer) => {
     for (let pattern of winPattern) {
       let pos1 = boxValue[pattern[0]];
       let pos2 = boxValue[pattern[1]];
@@ -57,6 +58,7 @@ const Game = () => {
         if (pos1 === pos2 && pos2 === pos3) {
           handleReset();
           setWinner(true);
+          setWinningPlayer(winningPlayer);
         }
       }
     }
@@ -79,14 +81,14 @@ const Game = () => {
           setBoxValue({ ...boxValue });
           setTurn(false);
           setPlayerTurn(players.players[1].name);
-          checkWinner();
+          checkWinner(players.players[1].name);
         } else {
           valueRef = "O";
           boxValue[id] = valueRef;
           setBoxValue({ ...boxValue });
           setTurn(true);
           setPlayerTurn(players.players[0].name);
-          checkWinner();
+          checkWinner(players.players[0].name);
         }
       }
     }
@@ -119,13 +121,13 @@ const Game = () => {
         <div className="flex justify-center">
           <button
             className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg"
-            onClick={!winner && !draw ? handleReset : ""}
+            onClick={!winner && !draw ? handleReset : null}
           >
             Reset
           </button>
           <button
             className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg"
-            onClick={!winner && !draw ? handleNewGame : ""}
+            onClick={!winner && !draw ? handleNewGame : null}
           >
             New Game
           </button>
@@ -133,7 +135,9 @@ const Game = () => {
       </div>
 
       {draw ? <Draw handleNewGame={handleNewGame} /> : null}
-      {winner ? <Winner handleNewGame={handleNewGame} /> : null}
+      {winner ? (
+        <Winner handleNewGame={handleNewGame} winningPlayer={winningPlayer} />
+      ) : null}
 
       {!draw && !winner ? (
         <div className="absolute top-[11%] px-4 py-2 bg-[#457B9D] text-center text-2xl text-[#F1FAEE] font-semibold rounded-2xl">

@@ -11,7 +11,7 @@ const SingleBox = ({ id, handleTurns, boxValue, winner, draw }) => {
   return (
     <div
       className="flex justify-center items-center m-2 bg-[#1D3557] h-[7rem] w-[7rem] rounded-2xl drop-shadow-box cursor-pointer text-6xl font-semibold text-[#F1FAEE]"
-      onClick={!winner && !draw ? handleBoxValue : ""}
+      onClick={!winner && !draw ? handleBoxValue : null}
       ref={boxValueRef}
     >
       {boxValue[id]}
