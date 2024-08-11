@@ -30,10 +30,8 @@ const Game = () => {
     boxes.push(<SingleBox />);
   }
 
-  let count = 0;
-
   const handleNewGame = () => {
-    setPlayers(initialValues);
+    reset();
     navigate("/players");
   };
 
@@ -63,7 +61,6 @@ const Game = () => {
   };
 
   const checkDraw = () => {
-    console.log(counter);
     if (winner !== true && counter === 9) {
       reset();
       navigate("/draw");
@@ -112,7 +109,10 @@ const Game = () => {
           ))}
         </div>
         <div className="flex justify-center">
-          <button className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg">
+          <button
+            className="m-1 p-3 rounded-2xl w-40 bg-[#457B9D] text-[#F1FAEE] font-bold text-lg"
+            onClick={reset}
+          >
             Reset
           </button>
           <button
