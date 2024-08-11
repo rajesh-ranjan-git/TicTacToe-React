@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initialValues, usePlayers } from "../utils/Store/PlayerController";
 import SingleBox from "./SingleBox";
@@ -55,15 +55,15 @@ const Game = () => {
       if (pos1 != undefined && pos2 != undefined && pos3 != undefined) {
         if (pos1 === pos2 && pos2 === pos3) {
           reset();
-          navigate("/winner");
           setWinner(true);
+          navigate("/winner");
         }
       }
     }
   };
 
   const checkDraw = () => {
-    console.log("Draw", counter);
+    console.log(counter);
     if (winner !== true && counter === 9) {
       reset();
       navigate("/draw");
@@ -91,9 +91,11 @@ const Game = () => {
         }
       }
     }
-
-    checkDraw();
   };
+
+  useEffect(() => {
+    checkDraw();
+  }, [counter]);
 
   return (
     <div className="flex justify-center">
