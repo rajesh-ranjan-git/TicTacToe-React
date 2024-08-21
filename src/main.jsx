@@ -5,8 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Components/Home";
 import Players from "./Components/Players";
 import Game from "./Components/Game";
-import Winner from "./Components/Winner";
-import Draw from "./Components/Draw";
 
 const appRouter = createBrowserRouter([
   {
