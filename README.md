@@ -1,4 +1,4 @@
-# Ti Tac Toe - React
+# Tic Tac Toe - React
 
 <h1>Rajesh Ranjan (Author)</h1>
 
