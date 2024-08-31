@@ -1,8 +1,24 @@
-# React + Vite
+# Ti Tac Toe - React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1>Rajesh Ranjan (Author)</h1>
 
-Currently, two official plugins are available:
+This is a Tic Tac Toe game created using React & Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Enjoy the game with cool sound effects.
+
+Tech Stacks used :
+
+> JSX <br>
+> TailWind CSS <br>
+> You can choose your name for playing the game <br>
+> Multiple functionalities like Win, Draw conditions <br>
+> Added cool sound effects <br>
+> Routing using React Routing <br>
+> Link tags <br>
+> Custom Hooks <br>
+> Higher Order Components <br>
+> State Lifting <br>
+> Context API
+> Deployed at https://tictactoe-react-vite-game.netlify.app <br>
+
+---
