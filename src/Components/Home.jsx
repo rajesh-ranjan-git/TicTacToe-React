@@ -1,5 +1,5 @@
 import React from "react";
-import startGame from "/assets/startGame.jpg";
+import startGame from "../assets/startGame.jpg";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
       </div>
 
       <img
-        src="/startGame.jpg"
+        src="/opt/build/repo/src/assets/startGame.jpg"
         alt="startGame"
         className="object-cover h-96 rounded-2xl"
       />
