@@ -21,7 +21,7 @@ const Home = () => {
       </div>
 
       <img
-        src="startGame.jpg"
+        src="/startGame.jpg"
         alt="startGame"
         className="object-cover h-96 rounded-2xl"
       />
