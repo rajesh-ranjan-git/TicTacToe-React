@@ -19,12 +19,6 @@ const Home = () => {
           </Link>
         </div>
       </div>
-
-      <img
-        src="/src/assets/startGame.jpg"
-        alt="startGame"
-        className="object-cover h-96 rounded-2xl"
-      />
     </div>
   );
 };
