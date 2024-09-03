@@ -1,5 +1,5 @@
 import React from "react";
-import startGame from "../assets/startGame.jpg";
+import startGame from "/assets/startGame.jpg";
 import { Link } from "react-router-dom";
 
 const Home = () => {
